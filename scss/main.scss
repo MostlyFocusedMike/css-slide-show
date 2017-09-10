@@ -1,3 +1,5 @@
+$slides: 5; //number of slides
+
 %mar-pad-0 {
   padding: 0;
   margin: 0;
@@ -37,7 +39,7 @@
 %fake {
   pointer-events: none;
   opacity: .5;
-  z-index: 3;
+  z-index: 4;
 }
 
 html, body {
@@ -47,8 +49,8 @@ html, body {
     margin: 0 auto;
     display: block;
     #slide-show {
-      width: 99.9%; //keeps that single line of pixels from peeking through
-      padding-top: 75%; //CHANGE THIS TO CHANGE ASPECT RATIO
+      width: 100;
+      padding: 75% 0 0 0; //CHANGE THIS TO CHANGE ASPECT RATIO
       margin: 0 auto;
       text-align: center;
       position: relative;
@@ -59,10 +61,38 @@ html, body {
         position: relative;
         z-index: 3;
         display: inline;
-        top: 90%;
+        bottom: 5px;
+        margin: 0 4px;
+        padding: 0;
+        opacity: 0;
+        &:checked~.fake-button{
+          
+        }
       }
+      #f-buttons {
+        position: absolute;
+        bottom: 7px;
+        width: 100.1%;
+        height: 14px;
+        @extend %mar-pad-0;
+        vertical-align: middle;
+        .fake-button {
+          @extend %fake;
+          position: relative;
+          display: inline-block;
+          border-radius: 50%;
+          width: 14px;
+          height: 14px;
+          margin: 0 3.1px;
+          padding: 0;
+          opacity: .6;
+          z-index: 4;
+          background-color: gray;
+        }
+      }
+      
       #fake-back {@extend %back; @extend %fake;}
-      #fake-next { @extend %next; @extend %fake;}
+      #fake-next {@extend %next; @extend %fake;}
       #track {
         position: absolute;
         @extend %t-l-r-b-0;
@@ -76,9 +106,13 @@ html, body {
   }
 }
 
-@for $i from 1 through 3 {
+@for $i from 1 through $slides {
   #s-#{$i}:checked~#track {
     transform: translateX(percentage(-($i - 1)));
+  }
+  #s-#{$i}:checked~#f-buttons .fake-button#b-#{$i} {
+    opacity: 1;
+    background-color: #ccc;
   }
   .slide:nth-of-type(#{$i}) {
     @extend %mar-pad-0;
