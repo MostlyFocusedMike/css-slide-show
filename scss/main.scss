@@ -1,0 +1,75 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+[type="radio"] {
+  position: relative;
+  z-index: 3;
+  display: inline;
+  top: 90%;
+}
+
+label {
+  display: inline-block;
+  border-top: 10px solid black;
+  border-left: 10px solid black;
+  border-color: rgba(0,0,0,.5);
+  width: 30px;
+  height: 30px;
+}
+#s-1:checked~#track{
+  transform: translateX(0%);
+}
+#s-2:checked~#track{
+  transform: translateX(-100%);
+}
+#s-3:checked~#track{
+  transform: translateX(-200%);
+}
+
+#slide-show-holder {
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+  #slide-show {
+    width: 100%;
+    padding-top: 75%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: bottom;
+  }
+}
+
+
+@for $i from 1 through 3 {
+  .slide:nth-of-type(#{$i}) {
+    background: url("../images/#{$i}.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    position: absolute;
+    overflow-y: auto;
+    transform: translateX(percentage(($i - 1)));
+    margin: 0;
+    padding: 0;
+  }
+
+}
+#track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+}
