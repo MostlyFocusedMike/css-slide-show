@@ -1,5 +1,4 @@
 $slides: 5; //number of slides
-
 %mar-pad-0 {
   padding: 0;
   margin: 0;
@@ -10,7 +9,7 @@ $slides: 5; //number of slides
   right: 0;
   bottom: 0;
 }
-%labels {
+%arrows {
   display: inline-block;
   border-top: 9px solid gray;
   width: 30px;
@@ -18,39 +17,40 @@ $slides: 5; //number of slides
   position: absolute;
   top: 48%;
   @extend %mar-pad-0;
+  z-index: 10;
 }
-%back {
-  @extend %labels;
-  border-left: 10px solid gray;
-  transform: rotate(-64deg) skewX(-30deg);
-  left: 2%;
-}
-%next {
-  @extend %labels;
-  border-right: 10px solid gray;
-  transform: rotate(64deg) skewX(30deg);
-  right: 2%;
-}
-%label-opacity {
-  opacity: 0;
-  &:hover {opacity: .8;}
-  &:active {opacity: 1;}
-}
-%fake {
-  pointer-events: none;
-  opacity: .5;
-  z-index: 4;
-}
-
 html, body {
   @extend %mar-pad-0;
   #slide-show-holder {
-    width: 60%;
+    width: 70%;  //CHANGE THIS TO CHANGE THE RESPONSIVE WIDTH
     margin: 0 auto;
     display: block;
+    .arrows {
+      position: absolute;
+      top: 45%;
+      left: 0;
+      display: none;
+      width: 100%;
+      .back {
+        @extend %arrows;
+        border-left: 10px solid gray;
+        transform: rotate(-64deg) skewX(-30deg);
+        left: 2%;
+        opacity: .5;
+        &:hover {opacity: .8;}
+      }
+      .next {
+        @extend %arrows;
+        border-right: 10px solid gray;
+        transform: rotate(64deg) skewX(30deg);
+        right: 2%;
+        opacity: .5;
+        &:hover {opacity: .8;}
+      }
+    }
     #slide-show {
-      width: 100;
-      padding: 75% 0 0 0; //CHANGE THIS TO CHANGE ASPECT RATIO
+      width: 100%;  //LEAVE THIS ONE ALONE THOUGH
+      padding-top: 75%; //CHANGE THIS TO CHANGE ASPECT RATIO
       margin: 0 auto;
       text-align: center;
       position: relative;
@@ -58,63 +58,47 @@ html, body {
       text-align: center;
       vertical-align: bottom;
       [type="radio"] {
-        position: relative;
-        z-index: 3;
-        display: inline;
-        bottom: 5px;
-        margin: 0 4px;
-        padding: 0;
-        opacity: 0;
-        &:checked~.fake-button{
-          
-        }
-      }
-      #f-buttons {
+        display: none;
+      }   
+      #f-buttons { //f-buttons holds the labels that look like buttons hence, fake
         position: absolute;
         bottom: 7px;
-        width: 100.1%;
+        width: 100%;
         height: 14px;
         @extend %mar-pad-0;
-        vertical-align: middle;
         .fake-button {
-          @extend %fake;
           position: relative;
           display: inline-block;
           border-radius: 50%;
           width: 14px;
           height: 14px;
-          margin: 0 3.1px;
+          margin: 0 3px;
           padding: 0;
-          opacity: .6;
           z-index: 4;
           background-color: gray;
+          &:hover {background-color: #aaa;}
         }
       }
-      
-      #fake-back {@extend %back; @extend %fake;}
-      #fake-next {@extend %next; @extend %fake;}
       #track {
         position: absolute;
         @extend %t-l-r-b-0;
         @extend %mar-pad-0;
-        .slide { //see for loop below
-          .back {@extend %back; @extend %label-opacity;}
-          .next {@extend %next; @extend %label-opacity;}
-        }
+        transition: transform .5s ease 0s;
       }
     }
   }
 }
-
 @for $i from 1 through $slides {
-  #s-#{$i}:checked~#track {
+  #s-#{$i}:checked~#track {  //moves the track itself
     transform: translateX(percentage(-($i - 1)));
   }
-  #s-#{$i}:checked~#f-buttons .fake-button#b-#{$i} {
-    opacity: 1;
+  #s-#{$i}:checked~#f-buttons .fake-button#b-#{$i} { //highlights current slide button
     background-color: #ccc;
   }
-  .slide:nth-of-type(#{$i}) {
+  #s-#{$i}:checked~.arrows:nth-of-type(#{$i}) { //makes the correct arrows visible
+    display: block;
+  }
+  .slide:nth-of-type(#{$i}) { //styles each slide and puts it in the right spot on the track
     @extend %mar-pad-0;
     @extend %t-l-r-b-0;
     background: url("../images/#{$i}.jpg");
@@ -124,6 +108,5 @@ html, body {
     height: 100%;
     position: absolute;
     transform: translateX(percentage(($i - 1)));
-
   }
 }
