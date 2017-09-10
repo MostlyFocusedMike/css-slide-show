@@ -15,23 +15,27 @@
               <input type="radio" name="slides" id="s-1" checked="checked"/>
               <input type="radio" name="slides" id="s-2" />
               <input type="radio" name="slides" id="s-3" />
+              <label for="nothing" class="fake back"></label>
+
+              <div id="fake-back"></div>
+              <div id="fake-next"></div>
 
              <div id="track">
                <div class="slide" id="slide-1">
-                <label for="s-3">back to 3</label>  
+                <label for="s-3" class="back"></label>  
                 <h1>slide 1</h1>
-                <label for="s-2"></label>  
+                <label for="s-2" class="next"></label>  
               </div>
                <div class="slide" id="slide-2">
-                <label for="s-1">back to 1</label>  
+                <label for="s-1" class="back"></label>  
               <h1>slide 2</h1>  
-                <label for="s-3">Forward to 3</label>  
+                <label for="s-3" class="next"></label>  
               </div>
 
               <div class="slide" id="slide-3">
-                <label for="s-2">back to 2</label>  
+                <label for="s-2" class="back"></label>  
               <h1>slide 3</h1>  
-                <label for="s-1">forward to 1</label>  
+                <label for="s-1" class="next"></label>  
               </div>
 
              </div>

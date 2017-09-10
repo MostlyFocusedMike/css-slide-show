@@ -1,3 +1,36 @@
+%labels {
+  display: inline-block;
+  border-top: 9px solid gray;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  top: 48%;
+  margin: 0;
+  padding: 0;
+}
+%back {
+  @extend %labels;
+  border-left: 10px solid gray;
+  transform: rotate(-65deg) skewX(-30deg);
+  left: 1%;
+}
+%next {
+  @extend %labels;
+  border-right: 10px solid gray;
+  transform: rotate(65deg) skewX(30deg);
+  right: 1%;
+}
+%label-opacity {
+  opacity: 0;
+  &:hover {opacity: .8;}
+  &:active {opacity: 1;}
+}
+%fake {
+  pointer-events: none;
+  opacity: .5;
+  z-index: 3;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -10,22 +43,21 @@ html, body {
   top: 90%;
 }
 
-label {
-  display: inline-block;
-  border-top: 10px solid black;
-  border-left: 10px solid black;
-  border-color: rgba(0,0,0,.5);
-  width: 30px;
-  height: 30px;
+.back {
+  @extend %back;
+  @extend %label-opacity;
 }
-#s-1:checked~#track{
-  transform: translateX(0%);
+#fake-back {
+  @extend %back;
+  @extend %fake;
 }
-#s-2:checked~#track{
-  transform: translateX(-100%);
+.next {
+  @extend %next;
+  @extend %label-opacity;
 }
-#s-3:checked~#track{
-  transform: translateX(-200%);
+#fake-next {
+  @extend %next;
+  @extend %fake;
 }
 
 #slide-show-holder {
@@ -44,8 +76,10 @@ label {
   }
 }
 
-
 @for $i from 1 through 3 {
+  #s-#{$i}:checked~#track{
+    transform: translateX(percentage(-($i - 1)));
+  }
   .slide:nth-of-type(#{$i}) {
     background: url("../images/#{$i}.jpg");
     background-size: cover;
@@ -62,7 +96,6 @@ label {
     margin: 0;
     padding: 0;
   }
-
 }
 #track {
   position: absolute;
