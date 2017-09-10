@@ -1,24 +1,33 @@
+%mar-pad-0 {
+  padding: 0;
+  margin: 0;
+}
+%t-l-r-b-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 %labels {
   display: inline-block;
   border-top: 9px solid gray;
-  width: 10%;
-  height: 10%;
+  width: 30px;
+  height: 25px;
   position: absolute;
   top: 48%;
-  margin: 0;
-  padding: 0;
+  @extend %mar-pad-0;
 }
 %back {
   @extend %labels;
   border-left: 10px solid gray;
-  transform: rotate(-65deg) skewX(-30deg);
-  left: 1%;
+  transform: rotate(-64deg) skewX(-30deg);
+  left: 2%;
 }
 %next {
   @extend %labels;
   border-right: 10px solid gray;
-  transform: rotate(65deg) skewX(30deg);
-  right: 1%;
+  transform: rotate(64deg) skewX(30deg);
+  right: 2%;
 }
 %label-opacity {
   opacity: 0;
@@ -32,77 +41,55 @@
 }
 
 html, body {
-  padding: 0;
-  margin: 0;
-}
-
-[type="radio"] {
-  position: relative;
-  z-index: 3;
-  display: inline;
-  top: 90%;
-}
-
-.back {
-  @extend %back;
-  @extend %label-opacity;
-}
-#fake-back {
-  @extend %back;
-  @extend %fake;
-}
-.next {
-  @extend %next;
-  @extend %label-opacity;
-}
-#fake-next {
-  @extend %next;
-  @extend %fake;
-}
-
-#slide-show-holder {
-  width: 60%;
-  margin: 0 auto;
-  display: block;
-  #slide-show {
-    width: 100%;
-    padding-top: 75%;
+  @extend %mar-pad-0;
+  #slide-show-holder {
+    width: 60%;
     margin: 0 auto;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    vertical-align: bottom;
+    display: block;
+    #slide-show {
+      width: 99.9%; //keeps that single line of pixels from peeking through
+      padding-top: 75%; //CHANGE THIS TO CHANGE ASPECT RATIO
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      vertical-align: bottom;
+      [type="radio"] {
+        position: relative;
+        z-index: 3;
+        display: inline;
+        top: 90%;
+      }
+      #fake-back {@extend %back; @extend %fake;}
+      #fake-next { @extend %next; @extend %fake;}
+      #track {
+        position: absolute;
+        @extend %t-l-r-b-0;
+        @extend %mar-pad-0;
+        .slide { //see for loop below
+          .back {@extend %back; @extend %label-opacity;}
+          .next {@extend %next; @extend %label-opacity;}
+        }
+      }
+    }
   }
 }
 
 @for $i from 1 through 3 {
-  #s-#{$i}:checked~#track{
+  #s-#{$i}:checked~#track {
     transform: translateX(percentage(-($i - 1)));
   }
   .slide:nth-of-type(#{$i}) {
+    @extend %mar-pad-0;
+    @extend %t-l-r-b-0;
     background: url("../images/#{$i}.jpg");
     background-size: cover;
     background-position: center;
     width: 100%;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 100%;
     position: absolute;
-    overflow-y: auto;
     transform: translateX(percentage(($i - 1)));
-    margin: 0;
-    padding: 0;
+
   }
-}
-#track {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
 }
