@@ -1,4 +1,4 @@
-# photo-slide-show
+# CSS Slideshow
 A lightweight alternative to using the popular bootstrap feature
 
 ### Project Goals 
