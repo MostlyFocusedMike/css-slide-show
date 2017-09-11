@@ -14,26 +14,34 @@
 HOW TO USE THE SASS/CSS ONLY SLIDE SHOW 
 Credit: This is a my slightly dumbed down take on Jhey Tompkins method, here is his:
 https://medium.com/@_jh3y/how-to-pure-css-carousel-ce1a8cb231c8
-
+-->
+<!--
 Basically, you take the number of slides you want and give each one a radio button. 
 By making use of the :nth-of-type selector, the ~ selector, and the
 :checked pseudo element, you make the track that your slides appear on move around
 to show each slide. A transition placed on the track element will add some nice
 animation to the whole thing.
+-->
 
+<!--
 I highly recommend checking out the article as Jhey explains it in more detail. 
 For my part, I have made the slide-show responsive, put it all into Sass format,
 and I'd like to think a bit simpler to plug and play. 
 Adjust the #slide-show-holder's width to your liking, and adjust the padding-top
 of the #slideshow to alter the height.
+-->
 
+<!--
 The slides themselves can hold any markup you want as long as it all goes inside
 each slide div. Pictures just need to be titled 1.jpg, 2.jpg, etc in your 
-images folder. You can obviously change these formats and naming style by 
+images/slides folder. You can obviously change these formats and naming style by 
 altering the for-loop in the sass as well.
-
+-->
+<!--
 Below are the spark notes of each section you want to change:
+-->
 
+<!--
 HTML
   RADIO BUTTONS/LABELS THAT LOOK LIKE ARROWS
   <input type="radio" name="slides" id="s-[slide number]" checked="checked"/>
@@ -58,15 +66,17 @@ HTML
     <div class="slide" id="slide-[slide #]"></div>
     //make sure you have the right number of slides
   </div>
+-->
 
+<!--
 SASS
   line 1: $slides: [number of slides you want];
   line 26: width: [any % you want, you can also add max and min];
-  line 54: padding-top: [any % you want, 75% is 4:3 aspect ratio, 56.25% is 16:9]
-
+  line 54: padding-top: [any % you want, 75% is 4:3 aspect ratio, 56.25% is 16:9, 130% is a common poster size]
 -->
-      <div id="slide-show-holder">
-        <div id="slide-show">
+
+      <div id="slideshow-holder">
+        <div id="slideshow">
           <input type="radio" name="slides" id="s-1" checked="checked"/>
           <div class="arrows">
             <label for="s-5" class="back"></label>  

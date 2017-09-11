@@ -21,7 +21,7 @@ $slides: 5; //number of slides
 }
 html, body {
   @extend %mar-pad-0;
-  #slide-show-holder {
+  #slideshow-holder {
     width: 70%;  //CHANGE THIS TO CHANGE THE RESPONSIVE WIDTH
     margin: 0 auto;
     display: block;
@@ -48,8 +48,8 @@ html, body {
         &:hover {opacity: .8;}
       }
     }
-    #slide-show {
-      width: 100%;  //LEAVE THIS ONE ALONE THOUGH
+    #slideshow {
+      width:  100%;  //LEAVE THIS ONE ALONE THOUGH
       padding-top: 75%; //CHANGE THIS TO CHANGE ASPECT RATIO
       margin: 0 auto;
       text-align: center;
@@ -75,7 +75,6 @@ html, body {
           margin: 0 3px;
           padding: 0;
           z-index: 4;
-          background-color: gray;
           &:hover {background-color: #aaa;}
         }
       }
@@ -88,6 +87,8 @@ html, body {
     }
   }
 }
+//Styles that change when certain radio buttons are checked
+//as well as handling the repetative styles of the slides
 @for $i from 1 through $slides {
   #s-#{$i}:checked~#track {  //moves the track itself
     transform: translateX(percentage(-($i - 1)));
@@ -95,13 +96,16 @@ html, body {
   #s-#{$i}:checked~#f-buttons .fake-button#b-#{$i} { //highlights current slide button
     background-color: #ccc;
   }
+  #s-#{$i}:not(:checked)~#f-buttons .fake-button#b-#{$i} { 
+    background-color: gray;
+  }
   #s-#{$i}:checked~.arrows:nth-of-type(#{$i}) { //makes the correct arrows visible
     display: block;
   }
   .slide:nth-of-type(#{$i}) { //styles each slide and puts it in the right spot on the track
     @extend %mar-pad-0;
     @extend %t-l-r-b-0;
-    background: url("../images/#{$i}.jpg");
+    background: url("../images/slides/#{$i}.jpg");
     background-size: cover;
     background-position: center;
     width: 100%;
